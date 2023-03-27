@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.mikitellurium.customizablepotioncolor.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "customizablepotioncolor.refmap.json",
+  "mixins": [
+
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}
