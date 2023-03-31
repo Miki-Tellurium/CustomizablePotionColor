@@ -1,5 +1,8 @@
 package com.mikitellurium.customizablepotioncolor;
 
+import com.mikitellurium.customizablepotioncolor.config.ModConfig;
+import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
+import com.mikitellurium.customizablepotioncolor.test.CustomPotionTest;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -12,11 +15,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
+import java.io.IOException;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CustomizablePotionColorMod.MOD_ID)
 public class CustomizablePotionColorMod {
     public static final String MOD_ID = "customizablepotioncolor";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public CustomizablePotionColorMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -33,7 +38,13 @@ public class CustomizablePotionColorMod {
     }
 
     public static void init(IEventBus eventBus) {
-
+        try {
+            ModConfig.registerConfig();
+            VanillaPotionConfig.registerVanillaPotionColorConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        CustomPotionTest.register(eventBus);
     }
 
     @SubscribeEvent
