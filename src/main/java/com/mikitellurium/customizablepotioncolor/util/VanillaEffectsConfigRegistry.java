@@ -1,7 +1,7 @@
 package com.mikitellurium.customizablepotioncolor.util;
 
 import com.mikitellurium.customizablepotioncolor.api.EffectColorEntry;
-import com.mikitellurium.customizablepotioncolor.config.ModConfig;
+import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,7 @@ public class VanillaEffectsConfigRegistry {
             return Integer.parseInt(colorString.substring(2),16);
         }
 
-        throw new IllegalArgumentException("Invalid color value specified in config: " + ModConfig.CONFIGS.getConfigFilePath());
+        throw new IllegalArgumentException("Invalid color value specified in config: " + VanillaPotionConfig.VANILLA_POTIONS_CONFIGS.getConfigFilePath());
     }
 
 }
