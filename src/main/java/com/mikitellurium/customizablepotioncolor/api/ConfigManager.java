@@ -43,21 +43,9 @@ public class ConfigManager {
             return newConfig;
         }
 
-        public ConfigEntry<Boolean> define(String key, boolean defaultValue, boolean initValue) {
-            ConfigEntry<Boolean> newConfig = new ConfigEntry<>(this, key, defaultValue, initValue);
-            ENTRIES.add(newConfig);
-            return newConfig;
-        }
-
         // Integer
         public ConfigEntry<Integer> define(String key, int defaultValue) {
             ConfigEntry<Integer> newConfig = new ConfigEntry<>(this, key, defaultValue);
-            ENTRIES.add(newConfig);
-            return newConfig;
-        }
-
-        public ConfigEntry<Integer> define(String key, int defaultValue, int initValue) {
-            ConfigEntry<Integer> newConfig = new ConfigEntry<>(this, key, defaultValue, initValue);
             ENTRIES.add(newConfig);
             return newConfig;
         }
@@ -69,12 +57,6 @@ public class ConfigManager {
             return newConfig;
         }
 
-        public ConfigEntry<Double> define(String key, double defaultValue, double initValue) {
-            ConfigEntry<Double> newConfig = new ConfigEntry<>(this, key, defaultValue, initValue);
-            ENTRIES.add(newConfig);
-            return newConfig;
-        }
-
         // Long
         public ConfigEntry<Long> define(String key, long defaultValue) {
             ConfigEntry<Long> newConfig = new ConfigEntry<>(this, key, defaultValue);
@@ -82,21 +64,9 @@ public class ConfigManager {
             return newConfig;
         }
 
-        public ConfigEntry<Long> define(String key, long defaultValue, long initValue) {
-            ConfigEntry<Long> newConfig = new ConfigEntry<>(this, key, defaultValue, initValue);
-            ENTRIES.add(newConfig);
-            return newConfig;
-        }
-
         // String
         public ConfigEntry<String> define(String key, String defaultValue) {
             ConfigEntry<String> newConfig = new ConfigEntry<>(this, key, defaultValue);
-            ENTRIES.add(newConfig);
-            return newConfig;
-        }
-
-        public ConfigEntry<String> define(String key, String defaultValue, String initValue) {
-            ConfigEntry<String> newConfig = new ConfigEntry<>(this, key, defaultValue, initValue);
             ENTRIES.add(newConfig);
             return newConfig;
         }
@@ -177,11 +147,9 @@ public class ConfigManager {
         // Check if the current line we are reading is an entry or a comment
         private boolean isValueLine(String line) {
             if (line.isEmpty()) return false;
-            else if (line.startsWith("#")) return false;
-            else if (line.startsWith("[")) return false;
+            else if (line.startsWith("#") || line.startsWith("[")) return false;
             return true;
         }
-
 
     }
 
@@ -193,18 +161,12 @@ public class ConfigManager {
         private String comment;
         private final String key;
         private final T defaultValue;
-        private final T initValue;
         private T value;
 
         protected ConfigEntry(Builder parent, String key, T defaultValue) {
-            this(parent, key, defaultValue, defaultValue);
-        }
-
-        protected ConfigEntry(Builder parent, String key, T defaultValue, T initValue) {
             this.builder = parent;
             this.key = key;
             this.defaultValue = defaultValue;
-            this.initValue = initValue;
         }
 
         public Builder getBuilder() {
@@ -221,7 +183,7 @@ public class ConfigManager {
 
         public T getValue() {
             if (value == null) {
-                return initValue;
+                return defaultValue;
             }
 
             return value;
