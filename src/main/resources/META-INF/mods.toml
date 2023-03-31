@@ -1,15 +1,15 @@
 modLoader="javafml" #mandatory
 loaderVersion="[45,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="MIT License"
-issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/Miki-Tellurium/CustomizablePotionColor/issues" #optional
 [[mods]] #mandatory
 modId="customizablepotioncolor" #mandatory
-version="${file.jarVersion}" #mandatory
+version="1.0.0-1.19.4" #mandatory
 displayName="Customizable Potion Color" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 logoFile="customizablepotioncolorlogo.png" #optional
-credits="Thanks to Abbie5 for mixin class" #optional
+#credits="" #optional
 authors="Miki Tellurium" #optional
 # Display Test controls the display for your mod in the server connection screen
 # MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.

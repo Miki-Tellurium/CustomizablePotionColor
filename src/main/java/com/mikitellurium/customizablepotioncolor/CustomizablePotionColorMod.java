@@ -1,8 +1,6 @@
 package com.mikitellurium.customizablepotioncolor;
 
-import com.mikitellurium.customizablepotioncolor.config.ModConfig;
 import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
-import com.mikitellurium.customizablepotioncolor.test.CustomPotionTest;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,12 +37,10 @@ public class CustomizablePotionColorMod {
 
     public static void init(IEventBus eventBus) {
         try {
-            ModConfig.registerConfig();
             VanillaPotionConfig.registerVanillaPotionColorConfig();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CustomPotionTest.register(eventBus);
     }
 
     @SubscribeEvent
