@@ -1,51 +1,37 @@
 buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven {
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-            content { includeGroup "org.spongepowered" }
-        }
-        mavenCentral()
-    }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
 
 plugins {
+    id 'java'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'java'
 apply plugin: 'org.spongepowered.mixin'
 
-version = project.mod_version
-group = 'com.mikitellurium.customizablepotioncolor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'customizablepotioncolor'
+archivesBaseName = "${mod_name}"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+mixin {
+    add sourceSets.main, "customizablepotioncolor.refmap.json"
+    config "mixins.customizablepotioncolor.json"
+}
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    
-    //mappings channel: 'official', version: '1.19.4'
-    mappings channel: 'parchment', version: '2023.03.12-1.19.3'
-   
+    mappings channel: 'official', version: minecraft_version
+
     runs {
         client {
             workingDirectory project.file('run')
-           
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            property 'forge.enabledGameTestNamespaces', 'customizablepotioncolor'
-
+            ideaModule "${rootProject.name}.${project.name}.main"
+            taskName 'runClient'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                customizablepotioncolor {
+                modClientRun {
                     source sourceSets.main
                 }
             }
@@ -53,32 +39,12 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            property 'forge.enabledGameTestNamespaces', 'customizablepotioncolor'
-
+            ideaModule "${rootProject.name}.${project.name}.main"
+            taskName 'runServer'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                customizablepotioncolor {
-                    source sourceSets.main
-                }
-            }
-        }
-
-
-        gameTestServer {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            property 'forge.enabledGameTestNamespaces', 'customizablepotioncolor'
-
-            mods {
-                customizablepotioncolor {
+                modServerRun {
                     source sourceSets.main
                 }
             }
@@ -86,15 +52,13 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'customizablepotioncolor', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            taskName 'runData'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                customizablepotioncolor {
+                modDataRun {
                     source sourceSets.main
                 }
             }
@@ -102,59 +66,55 @@ minecraft {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 repositories {
 
-}
+    mavenCentral()
 
-dependencies {
-
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.25'
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
-}
-
-mixin {
-    // MixinGradle Settings
-    add sourceSets.main, 'mixins.customizablepotioncolor.refmap.json'
-    config 'mixins.customizablepotioncolor.json'
-
-    debug.verbose = true
-    debug.export = true
-}
-
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : "Customizable Potion Color",
-                "Specification-Vendor"    : "customizablepotioncolorsareus",
-                "Specification-Version"   : "1.0.0-1.19.4-forge",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "Miki Tellurium",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+    maven {
+        name = 'Sponge / Mixin'
+        url = 'https://repo.spongepowered.org/repository/maven-public/'
     }
-}
 
 
-jar.finalizedBy('reobfJar')
+    dependencies {
+        minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+        annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
+    jar {
+        manifest {
+            attributes([
+                    'Specification-Title'     : mod_name,
+                    'Specification-Vendor'    : mod_author,
+                    'Specification-Version'   : project.jar.archiveVersion,
+                    'Implementation-Title'    : project.name,
+                    'Implementation-Version'  : project.jar.archiveVersion,
+                    'Implementation-Vendor'   : mod_author,
+                    'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                    'Timestamp'               : System.currentTimeMillis(),
+                    'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                    'Built-On-Minecraft'      : minecraft_version
+            ])
         }
     }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+
+    jar.finalizedBy('reobfJar')
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId project.group
+                artifactId project.archivesBaseName
+                version project.version
+                artifact jar
+            }
+        }
+        repositories {
+            maven {
+                url "file://" + System.getenv("local_maven")
+            }
         }
     }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

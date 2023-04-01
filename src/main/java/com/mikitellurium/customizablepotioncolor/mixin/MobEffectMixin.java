@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MobEffect.class)
-public abstract class MobEffectMixin {
+public class MobEffectMixin {
 
     @Shadow @Final private int color;
 
