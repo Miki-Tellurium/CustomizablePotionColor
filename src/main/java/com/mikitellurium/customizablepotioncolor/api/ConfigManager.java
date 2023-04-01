@@ -89,8 +89,9 @@ public class ConfigManager {
                     writer.write("#" + s + newline);
                 }
             }
-
+            writer.write(newline);
             writer.write("[Settings]" + newline);
+            writer.write(newline);
 
             // Write config entries
             if (ENTRIES.size() > 0) {
@@ -99,6 +100,7 @@ public class ConfigManager {
 
                     writer.write("# " + v.getComment() + newline);
                     writer.write(v.getKey() + entrySeparator + v.getValue() + newline);
+                    writer.write(newline);
                 }
             }
 

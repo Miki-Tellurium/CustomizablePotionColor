@@ -19,8 +19,7 @@ public class VanillaPotionConfig {
                 .comment(" old = use the old vanilla colors prior to 1.19.4;")
                 .comment(" hex values (example: #FFFFFF) = to specify a custom color;")
                 .comment("Changing the color of an effect will also modify")
-                .comment("the respective potions and arrows")
-                .comment("");
+                .comment("the respective potions and arrows");
 
         VanillaEffectsConfigRegistry.EFFECT_SPEED = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "speedEffectColor",
                 VanillaEffectsColorsRegistry.getNewColorById(1),
