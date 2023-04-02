@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "customizablepotioncolor",
+	"version": "1.0.0-1.19.4",
+	"name": "Customizable Potion Color",
+	"description": "Customize the color of potions using a config file",
+	"authors": [
+		"Miki Tellurium"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/customizable-potions-color",
+		"sources": "https://github.com/Miki-Tellurium/CustomizablePotionColor",
+		"issues": "https://github.com/Miki-Tellurium/CustomizablePotionColor/issues"
+	},
+	"license": "MIT License",
+	"icon": "assets/customizablepotioncolor/customizablepotioncolorlogo.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.mikitellurium.customizablepotioncolor.CustomizablePotionColorMod"
+		]
+	},
+	"mixins": [
+		"customizablepotioncolor.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.19",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
