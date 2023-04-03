@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /* Tellurium Config
- * Fabric Version 1.2.0
+ * Fabric Version 1.3.0
  *
  * You can use and modify this freely if you want, just respect the License
  * and credit me.
@@ -105,6 +105,16 @@ public class TelluriumConfig {
             return newEntry;
         }
 
+        private ConfigEntry<?> getConfigEntry(String key) {
+            for (ConfigEntry entry : ENTRIES) {
+                if (entry.getKey().equals(key)) {
+                    return entry;
+                }
+            }
+
+            return null;
+        }
+
         public void build() throws IOException {
             File file = new File(this.file);
             if (file.exists()) {
@@ -141,6 +151,7 @@ public class TelluriumConfig {
                                         ", max=" + ((IntRangeConfigEntry) entry).getMaxValue() + newline);
                     }
 
+                    writer.write("# default = " + entry.getDefaultValue() + newline);
                     writer.write(entry.getKey() + entrySeparator + entry.getValue() + newline);
                     writer.write(newline);
                 }
@@ -151,41 +162,50 @@ public class TelluriumConfig {
         }
 
         private void load() throws IOException {
-            int index = 0;
             File file = new File(this.file);
             Scanner reader = new Scanner(file);
             for (int line = 1; reader.hasNextLine(); line++) {
-                if (parseConfigEntry(reader.nextLine(), line, index)) {
-                   index++;
-                }
+                parseConfigEntry(reader.nextLine(), line);
             }
         }
 
         @SuppressWarnings("unchecked")
-        private boolean parseConfigEntry(String entry, int line, int index) {
-            if (isValueLine(entry)) {
-                String[] entryParts = entry.split("=", 2);
+        private void parseConfigEntry(String string, int line) {
+            if (isValueLine(string)) {
+                String[] entryParts = string.split("=", 2);
 
                 if (entryParts.length == 2) {
-                    if (TypeUtil.isBoolean(entryParts[1])) {
-                        ENTRIES.get(index).setValue(Boolean.parseBoolean(entryParts[1]));
-                    } else if (TypeUtil.isInteger(entryParts[1])) {
-                        ENTRIES.get(index).setValue(Integer.parseInt(entryParts[1]));
-                    } else if (TypeUtil.isDouble(entryParts[1])) {
-                        ENTRIES.get(index).setValue(Double.parseDouble(entryParts[1]));
-                    } else if (TypeUtil.isString(entryParts[1])) {
-                        ENTRIES.get(index).setValue(String.valueOf(entryParts[1]));
+                    ConfigEntry configEntry = this.getConfigEntry(entryParts[0]);
+
+                    if (configEntry != null) {
+
+                        try {
+                            if (configEntry.getValue() instanceof Boolean) {
+                                configEntry.setValue(Boolean.parseBoolean(entryParts[1]));
+                            } else if (configEntry.getValue() instanceof Integer) {
+                                configEntry.setValue(Integer.parseInt(entryParts[1]));
+                            } else if (configEntry.getValue() instanceof Double) {
+                                configEntry.setValue(Double.parseDouble(entryParts[1]));
+                            } else if (configEntry.getValue() instanceof Long) {
+                                configEntry.setValue(Long.parseLong(entryParts[1]));
+                            } else if (configEntry.getValue() instanceof String) {
+                                configEntry.setValue(String.valueOf(entryParts[1]));
+                            }
+                        } catch (NumberFormatException e){
+                            configEntry.setValue(configEntry.getDefaultValue());
+                            //throw new IllegalConfigValueException("Invalid value type in config file \"" + this.getConfigFilePath() + "\" on line " + line);
+                        }
+
                     } else {
-                        throw new IllegalConfigValueException("Invalid value type in config file \"" + this.getConfigFilePath() + "\" on line " + line);
+                        throw new IllegalConfigValueException("Syntax error in config file \"" + this.getConfigFilePath() + "\" on line " + line);
                     }
 
-                    return true;
                 } else {
                     throw new IllegalConfigValueException("Syntax error in config file \"" + this.getConfigFilePath() + "\" on line " + line);
                 }
+
             }
 
-            return false;
         }
 
         // Check if the current line we are reading is an entry or a comment
@@ -198,7 +218,7 @@ public class TelluriumConfig {
     }
 
     // Object that saves values
-    @SuppressWarnings("FieldCanBeLocal")
+    @SuppressWarnings("fieldCanBeLocal")
     public static class ConfigEntry<T> {
 
         private final Builder builder;
@@ -226,7 +246,7 @@ public class TelluriumConfig {
         }
 
         public T getValue() {
-            if (value == null) {
+            if (value == null || value.toString().isBlank()) {
                 return defaultValue;
             }
 
@@ -283,29 +303,6 @@ public class TelluriumConfig {
         public IntRangeConfigEntry comment(String comment) {
             super.comment(comment);
             return this;
-        }
-
-    }
-
-    public static class TypeUtil {
-
-        public static boolean isInteger(String string) {
-            Scanner scanner = new Scanner(string);
-            return scanner.hasNextInt();
-        }
-
-        public static boolean isDouble(String string) {
-            Scanner scanner = new Scanner(string);
-            return scanner.hasNextDouble();
-        }
-
-        public static boolean isBoolean(String string) {
-            Scanner scanner = new Scanner(string);
-            return scanner.hasNextBoolean();
-        }
-
-        public static boolean isString(String string) {
-            return true;
         }
 
     }

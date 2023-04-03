@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "customizablepotioncolor",
-	"version": "1.0.0-1.19.4",
+	"version": "1.1.0-1.19.4",
 	"name": "Customizable Potion Color",
 	"description": "Customize the color of potions using a config file",
 	"authors": [
