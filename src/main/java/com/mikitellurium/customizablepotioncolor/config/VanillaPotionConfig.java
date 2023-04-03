@@ -1,6 +1,6 @@
 package com.mikitellurium.customizablepotioncolor.config;
 
-import com.mikitellurium.customizablepotioncolor.api.ConfigManager;
+import com.mikitellurium.customizablepotioncolor.api.TelluriumConfig;
 import com.mikitellurium.customizablepotioncolor.api.EffectColorEntry;
 import com.mikitellurium.customizablepotioncolor.util.VanillaEffectsColorsRegistry;
 import com.mikitellurium.customizablepotioncolor.util.VanillaEffectsConfigRegistry;
@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class VanillaPotionConfig {
 
-    public static final ConfigManager.Builder VANILLA_POTIONS_CONFIGS = new ConfigManager.Builder("vanillapotionscolors");
+    public static final TelluriumConfig.Builder VANILLA_POTIONS_CONFIGS = new TelluriumConfig.Builder("vanillapotionscolors");
 
     public static void registerVanillaPotionColorConfig() throws IOException {
         VANILLA_POTIONS_CONFIGS.comment("Vanilla effects color configuration")
