@@ -18,14 +18,14 @@ public class VanillaPotionConfig {
     }
 
     private static void registerVanillaPotionColorConfig(TelluriumConfig.Builder builder) throws IOException {
-        builder.comment("Vanilla effects color configuration")
+        builder.comment(" Vanilla effects color configuration")
                 .comment("")
-                .comment("Customize effects color using:")
-                .comment(" default = use the new colors added in 1.19.4;")
-                .comment(" old = use the old vanilla colors prior to 1.19.4;")
-                .comment(" hex values (example: #FFFFFF) = to specify a custom color;")
-                .comment("Changing the color of an effect will also modify")
-                .comment("the respective potions and arrows");
+                .comment(" Customize effects color using:")
+                .comment(" -default = use the new colors added in 1.19.4;")
+                .comment(" -old = use the old vanilla colors prior to 1.19.4;")
+                .comment(" -hex values (example: #FFFFFF) = to specify a custom color;")
+                .comment(" Changing the color of an effect will also modify")
+                .comment(" the respective potions and arrows");
 
         VanillaEffectsConfigRegistry.CONFIG_SPEED = builder
                 .define("speedEffectColor", DEFAULT)
