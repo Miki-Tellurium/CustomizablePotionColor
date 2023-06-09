@@ -1,6 +1,5 @@
 package com.mikitellurium.customizablepotioncolor.util;
 
-import com.mikitellurium.customizablepotioncolor.api.EffectColorEntry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 

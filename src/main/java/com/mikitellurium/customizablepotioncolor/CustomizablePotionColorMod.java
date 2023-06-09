@@ -15,7 +15,7 @@ public class CustomizablePotionColorMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		try {
-			VanillaPotionConfig.registerVanillaPotionColorConfig();
+			VanillaPotionConfig.initConfig();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
