@@ -2,6 +2,9 @@ package com.mikitellurium.customizablepotioncolor.api;
 
 public class EffectColorEntry {
 
+    public static final String DEFAULT = "default";
+    public static final String OLD = "old";
+
     private final TelluriumConfig.ConfigEntry<String> setting;
     private final String defaultColor;
     private final String oldColor;
@@ -11,7 +14,7 @@ public class EffectColorEntry {
     }
 
     public EffectColorEntry(TelluriumConfig.Builder builder, String key, String defaultColor, String oldColor) {
-        this.setting = builder.define(key, "default");
+        this.setting = builder.define(key, DEFAULT);
         this.defaultColor = defaultColor;
         this.oldColor = oldColor;
     }
