@@ -94,7 +94,8 @@ public class VanillaEffectsConfigRegistry {
             return Integer.parseInt(colorString.substring(2),16);
         }
 
-        throw new IllegalArgumentException("Invalid color value specified in config: " + VanillaPotionConfig.VANILLA_POTIONS_CONFIGS.getConfigFilePath());
+        throw new IllegalArgumentException("Invalid color value specified in config: " +
+                VanillaPotionConfig.VANILLA_POTIONS_CONFIGS.getConfigFilePath());
     }
 
 }
