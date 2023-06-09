@@ -18,6 +18,9 @@
 	"entrypoints": {
 		"main": [
 			"com.mikitellurium.customizablepotioncolor.CustomizablePotionColorMod"
+		],
+		"client": [
+			"com.mikitellurium.customizablepotioncolor.ModClientInit"
 		]
 	},
 	"mixins": [
