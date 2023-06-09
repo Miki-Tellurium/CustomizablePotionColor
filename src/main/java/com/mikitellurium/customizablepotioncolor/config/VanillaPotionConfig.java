@@ -15,6 +15,7 @@ public class VanillaPotionConfig {
     public static void initConfig() throws IOException {
         VANILLA_POTIONS_CONFIGS = new TelluriumConfig.Builder("vanillapotionscolors");
         registerVanillaPotionColorConfig(VANILLA_POTIONS_CONFIGS);
+        VanillaEffectsConfigRegistry.initEffectsMap();
     }
 
     private static void registerVanillaPotionColorConfig(TelluriumConfig.Builder builder) throws IOException {
@@ -160,7 +161,6 @@ public class VanillaPotionConfig {
                 .comment("Darkness effect color value");
 
         VANILLA_POTIONS_CONFIGS.build();
-        VanillaEffectsConfigRegistry.initEffectsMap();
     }
 
 }
