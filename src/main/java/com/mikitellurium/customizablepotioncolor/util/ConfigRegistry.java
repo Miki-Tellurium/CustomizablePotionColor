@@ -1,14 +1,13 @@
 package com.mikitellurium.customizablepotioncolor.util;
 
 import com.mikitellurium.customizablepotioncolor.api.TelluriumConfig;
-import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class VanillaEffectsConfigRegistry {
+public class ConfigRegistry {
 
     public static TelluriumConfig.ConfigEntry<String> CONFIG_SPEED;
     public static TelluriumConfig.ConfigEntry<String> CONFIG_SLOWNESS;
@@ -83,19 +82,6 @@ public class VanillaEffectsConfigRegistry {
 
     public static TelluriumConfig.ConfigEntry<String> getConfig(StatusEffect effect) {
         return vanillaEffectsColorConfigs.get(effect);
-    }
-
-    public static int getColorInt(TelluriumConfig.ConfigEntry<String> entry) {
-        String value = entry.getValue();
-
-        if (value.indexOf('#') == 0) {
-            String s = value.substring(1);
-            String colorString = "0x" + s;
-            return Integer.parseInt(colorString.substring(2),16);
-        }
-
-        throw new IllegalArgumentException("Invalid color value specified in config: " +
-                VanillaPotionConfig.VANILLA_POTIONS_CONFIGS.getConfigFilePath());
     }
 
 }
