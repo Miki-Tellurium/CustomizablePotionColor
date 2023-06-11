@@ -4,7 +4,7 @@ import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.GameShuttingDownEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +26,7 @@ public class CustomizablePotionColorMod {
 
         modEventBus.addListener(this::commonSetup);
 
-        init(modEventBus);
+        init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -35,16 +35,23 @@ public class CustomizablePotionColorMod {
 
     }
 
-    public static void init(IEventBus eventBus) {
+    public static void init() {
         try {
-            VanillaPotionConfig.registerVanillaPotionColorConfig();
+            VanillaPotionConfig.initConfig();
+            LOGGER.info("Loaded vanilla potions effect color config");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public void onGameShuttingDown(GameShuttingDownEvent event) {
+        try {
+            VanillaPotionConfig.VANILLA_POTIONS_CONFIGS.save();
+            LOGGER.info("Saved vanilla potions effect color config");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

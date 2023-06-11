@@ -1,193 +1,167 @@
 package com.mikitellurium.customizablepotioncolor.config;
 
 import com.mikitellurium.customizablepotioncolor.api.TelluriumConfig;
-import com.mikitellurium.customizablepotioncolor.api.EffectColorEntry;
-import com.mikitellurium.customizablepotioncolor.util.VanillaEffectsColorsRegistry;
-import com.mikitellurium.customizablepotioncolor.util.VanillaEffectsConfigRegistry;
+import com.mikitellurium.customizablepotioncolor.util.ConfigRegistry;
 
 import java.io.IOException;
 
 public class VanillaPotionConfig {
 
-    public static final TelluriumConfig.Builder VANILLA_POTIONS_CONFIGS = new TelluriumConfig.Builder("vanillapotionscolors");
+    public static final String DEFAULT = "default";
+    public static final String OLD = "old";
 
-    public static void registerVanillaPotionColorConfig() throws IOException {
-        VANILLA_POTIONS_CONFIGS.comment("Vanilla effects color configuration")
+    public static TelluriumConfig.Builder VANILLA_POTIONS_CONFIGS;
+
+    public static void initConfig() throws IOException {
+        VANILLA_POTIONS_CONFIGS = new TelluriumConfig.Builder("vanillapotionscolors");
+        registerVanillaPotionColorConfig(VANILLA_POTIONS_CONFIGS);
+        ConfigRegistry.initEffectsMap();
+    }
+
+    private static void registerVanillaPotionColorConfig(TelluriumConfig.Builder builder) throws IOException {
+        builder.comment(" Vanilla effects color configuration")
                 .comment("")
-                .comment("Customize effects color using:")
-                .comment(" default = use the new colors added in 1.19.4;")
-                .comment(" old = use the old vanilla colors prior to 1.19.4;")
-                .comment(" hex values (example: #FFFFFF) = to specify a custom color;")
-                .comment("Changing the color of an effect will also modify")
-                .comment("the respective potions and arrows");
+                .comment(" Customize effects color using:")
+                .comment(" -default = use the new colors added in 1.19.4;")
+                .comment(" -old = use the old vanilla colors prior to 1.19.4")
+                .comment("  (Note: some of them didn't change);")
+                .comment(" -hex values (example: #FFFFFF) = to specify a custom color;")
+                .comment(" Changing the color of an effect will also modify")
+                .comment(" the respective potions and arrows");
 
-        VanillaEffectsConfigRegistry.EFFECT_SPEED = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "speedEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(1),
-                VanillaEffectsColorsRegistry.getOldColorById(1))
+        ConfigRegistry.CONFIG_SPEED = builder
+                .define("speedEffectColor", DEFAULT)
                 .comment("Speed effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_SLOWNESS = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "slownessEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(2),
-                VanillaEffectsColorsRegistry.getOldColorById(2))
+        ConfigRegistry.CONFIG_SLOWNESS = builder
+                .define("slownessEffectColor", DEFAULT)
                 .comment("Slowness effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_HASTE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "hasteEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(3),
-                VanillaEffectsColorsRegistry.getOldColorById(3))
+        ConfigRegistry.CONFIG_HASTE = builder
+                .define("hasteEffectColor", DEFAULT)
                 .comment("Haste effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_MINING_FATIGUE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "miningFatigueEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(4),
-                VanillaEffectsColorsRegistry.getOldColorById(4))
+        ConfigRegistry.CONFIG_MINING_FATIGUE = builder
+                .define("miningFatigueEffectColor", DEFAULT)
                 .comment("Mining fatigue effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_STRENGTH = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "strengthEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(5),
-                VanillaEffectsColorsRegistry.getOldColorById(5))
+        ConfigRegistry.CONFIG_STRENGTH = builder
+                .define("strengthEffectColor", DEFAULT)
                 .comment("Strength effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_INSTANT_HEALTH = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "instantHealthEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(6),
-                VanillaEffectsColorsRegistry.getOldColorById(6))
+        ConfigRegistry.CONFIG_INSTANT_HEALTH = builder
+                .define("instantHealthEffectColor", DEFAULT)
                 .comment("Instant health effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_INSTANT_DAMAGE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "instantDamageEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(7),
-                VanillaEffectsColorsRegistry.getOldColorById(7))
+        ConfigRegistry.CONFIG_INSTANT_DAMAGE = builder
+                .define("instantDamageEffectColor", DEFAULT)
                 .comment("Instant damage effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_JUMP_BOOST = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "jumpBoostEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(8),
-                VanillaEffectsColorsRegistry.getOldColorById(8))
+        ConfigRegistry.CONFIG_JUMP_BOOST = builder
+                .define("jumpBoostEffectColor", DEFAULT)
                 .comment("Jump boost effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_NAUSEA = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "nauseaEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(9),
-                VanillaEffectsColorsRegistry.getOldColorById(9))
+        ConfigRegistry.CONFIG_NAUSEA = builder
+                .define("nauseaEffectColor", DEFAULT)
                 .comment("Nausea effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_REGENERATION = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "regenerationEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(10),
-                VanillaEffectsColorsRegistry.getOldColorById(10))
+        ConfigRegistry.CONFIG_REGENERATION = builder
+                .define("regenerationEffectColor", DEFAULT)
                 .comment("Regeneration effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_RESISTANCE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "resistanceEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(11),
-                VanillaEffectsColorsRegistry.getOldColorById(11))
+        ConfigRegistry.CONFIG_RESISTANCE = builder
+                .define("resistanceEffectColor", DEFAULT)
                 .comment("Resistance effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_FIRE_RESISTANCE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "fireResistanceEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(12),
-                VanillaEffectsColorsRegistry.getOldColorById(12))
+        ConfigRegistry.CONFIG_FIRE_RESISTANCE = builder
+                .define("fireResistanceEffectColor", DEFAULT)
                 .comment("Fire resistance effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_WATER_BREATHING = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "waterBreathingEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(13),
-                VanillaEffectsColorsRegistry.getOldColorById(13))
+        ConfigRegistry.CONFIG_WATER_BREATHING = builder
+                .define("waterBreathingEffectColor", DEFAULT)
                 .comment("Water breathing effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_INVISIBILITY = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "invisibilityEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(14),
-                VanillaEffectsColorsRegistry.getOldColorById(14))
+        ConfigRegistry.CONFIG_INVISIBILITY = builder
+                .define("invisibilityEffectColor", DEFAULT)
                 .comment("Invisibility effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_BLINDNESS = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "blindnessEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(15),
-                VanillaEffectsColorsRegistry.getOldColorById(15))
+        ConfigRegistry.CONFIG_BLINDNESS = builder
+                .define("blindnessEffectColor", DEFAULT)
                 .comment("Blindness effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_NIGHT_VISION = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "nightVisionEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(16),
-                VanillaEffectsColorsRegistry.getOldColorById(16))
+        ConfigRegistry.CONFIG_NIGHT_VISION = builder
+                .define("nightVisionEffectColor", DEFAULT)
                 .comment("Night vision effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_HUNGER = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "hungerEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(17),
-                VanillaEffectsColorsRegistry.getOldColorById(17))
+        ConfigRegistry.CONFIG_HUNGER = builder
+                .define("hungerEffectColor", DEFAULT)
                 .comment("Hunger effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_WEAKNESS = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "weaknessEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(18),
-                VanillaEffectsColorsRegistry.getOldColorById(18))
+        ConfigRegistry.CONFIG_WEAKNESS = builder
+                .define("weaknessEffectColor", DEFAULT)
                 .comment("Weakness effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_POISON = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "poisonEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(19),
-                VanillaEffectsColorsRegistry.getOldColorById(19))
+        ConfigRegistry.CONFIG_POISON = builder
+                .define("poisonEffectColor", DEFAULT)
                 .comment("Poison effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_WITHER = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "witherEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(20),
-                VanillaEffectsColorsRegistry.getOldColorById(20))
+        ConfigRegistry.CONFIG_WITHER = builder
+                .define("witherEffectColor", DEFAULT)
                 .comment("Wither effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_HEALTH_BOOST = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "healthBoostEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(21),
-                VanillaEffectsColorsRegistry.getOldColorById(21))
+        ConfigRegistry.CONFIG_HEALTH_BOOST = builder
+                .define("healthBoostEffectColor", DEFAULT)
                 .comment("Health boost effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_ABSORPTION = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "absorptionEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(22),
-                VanillaEffectsColorsRegistry.getOldColorById(22))
+        ConfigRegistry.CONFIG_ABSORPTION = builder
+                .define("absorptionEffectColor", DEFAULT)
                 .comment("Absorption effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_SATURATION = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "saturationEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(23),
-                VanillaEffectsColorsRegistry.getOldColorById(23))
+        ConfigRegistry.CONFIG_SATURATION = builder
+                .define("saturationEffectColor", DEFAULT)
                 .comment("Saturation effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_GLOWING = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "glowingEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(24),
-                VanillaEffectsColorsRegistry.getOldColorById(24))
+        ConfigRegistry.CONFIG_GLOWING = builder
+                .define("glowingEffectColor", DEFAULT)
                 .comment("Glowing effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_LEVITATION = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "levitationEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(25),
-                VanillaEffectsColorsRegistry.getOldColorById(25))
+        ConfigRegistry.CONFIG_LEVITATION = builder
+                .define("levitationEffectColor", DEFAULT)
                 .comment("Levitation effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_LUCK = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "luckEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(26),
-                VanillaEffectsColorsRegistry.getOldColorById(26))
+        ConfigRegistry.CONFIG_LUCK = builder
+                .define("luckEffectColor", DEFAULT)
                 .comment("Luck effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_UNLUCK = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "unluckEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(27),
-                VanillaEffectsColorsRegistry.getOldColorById(27))
+        ConfigRegistry.CONFIG_UNLUCK = builder
+                .define("unluckEffectColor", DEFAULT)
                 .comment("Unluck effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_SLOW_FALLING = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "slowFallingEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(28),
-                VanillaEffectsColorsRegistry.getOldColorById(28))
+        ConfigRegistry.CONFIG_SLOW_FALLING = builder
+                .define("slowFallingEffectColor", DEFAULT)
                 .comment("Slow falling effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_CONDUIT_POWER = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "conduitPowerEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(29),
-                VanillaEffectsColorsRegistry.getOldColorById(29))
+        ConfigRegistry.CONFIG_CONDUIT_POWER = builder
+                .define("conduitPowerEffectColor", DEFAULT)
                 .comment("Conduit power effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_DOLPHIN_GRACE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "dolphinGraceEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(30),
-                VanillaEffectsColorsRegistry.getOldColorById(30))
+        ConfigRegistry.CONFIG_DOLPHIN_GRACE = builder
+                .define("dolphinGraceEffectColor", DEFAULT)
                 .comment("Dolphin grace effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_BAD_OMEN = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "badOmenEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(31),
-                VanillaEffectsColorsRegistry.getOldColorById(31))
+        ConfigRegistry.CONFIG_BAD_OMEN = builder
+                .define("badOmenEffectColor", DEFAULT)
                 .comment("Bad omen effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_HERO_OF_THE_VILLAGE = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "heroOfTheVillageEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(32),
-                VanillaEffectsColorsRegistry.getOldColorById(32))
+        ConfigRegistry.CONFIG_HERO_OF_THE_VILLAGE = builder
+                .define("heroOfTheVillageEffectColor", DEFAULT)
                 .comment("Hero of the village effect color value");
 
-        VanillaEffectsConfigRegistry.EFFECT_DARKNESS = new EffectColorEntry(VANILLA_POTIONS_CONFIGS, "darknessEffectColor",
-                VanillaEffectsColorsRegistry.getNewColorById(33),
-                VanillaEffectsColorsRegistry.getOldColorById(33))
+        ConfigRegistry.CONFIG_DARKNESS = builder
+                .define("darknessEffectColor", DEFAULT)
                 .comment("Darkness effect color value");
 
         VANILLA_POTIONS_CONFIGS.build();
-        VanillaEffectsConfigRegistry.initEffects();
     }
 
 }
