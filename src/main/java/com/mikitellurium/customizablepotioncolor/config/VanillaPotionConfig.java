@@ -23,8 +23,8 @@ public class VanillaPotionConfig {
                 .comment("")
                 .comment(" Customize effects color using:")
                 .comment(" -default = use the new colors added in 1.19.4;")
-                .comment(" -old = use the old vanilla colors prior to 1.19.4 (Note: some")
-                .comment("  of them didn't change);")
+                .comment(" -old = use the old vanilla colors prior to 1.19.4")
+                .comment("  (Note: some of them didn't change);")
                 .comment(" -hex values (example: #FFFFFF) = to specify a custom color;")
                 .comment(" Changing the color of an effect will also modify")
                 .comment(" the respective potions and arrows");
