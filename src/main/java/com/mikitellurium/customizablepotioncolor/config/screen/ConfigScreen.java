@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ConfigScreen {
 
-    protected static Screen configScreen(Screen parent) {
+    public static Screen configScreen(Screen parent) {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
                 .setTitle(Component.translatable("config.customizablepotioncolor.title"));

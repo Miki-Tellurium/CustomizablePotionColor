@@ -1,12 +1,19 @@
 package com.mikitellurium.customizablepotioncolor;
 
 import com.mikitellurium.customizablepotioncolor.config.VanillaPotionConfig;
+import com.mikitellurium.customizablepotioncolor.config.screen.ConfigScreen;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.GameShuttingDownEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,10 +32,9 @@ public class CustomizablePotionColorMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.register(this);
 
         init();
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -41,6 +47,12 @@ public class CustomizablePotionColorMod {
             LOGGER.info("Loaded vanilla potions effect color config");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (ModList.get().isLoaded("cloth_config")) {
+            ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                    () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> ConfigScreen.configScreen(screen)));
+            LOGGER.info("ClothConfig found. Loaded in-game config menu");
         }
     }
 
