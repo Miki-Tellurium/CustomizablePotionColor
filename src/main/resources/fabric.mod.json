@@ -20,7 +20,7 @@
 			"com.mikitellurium.customizablepotioncolor.CustomizablePotionColorMod"
 		],
 		"modmenu": [
-			"com.mikitellurium.customizablepotioncolor.config.ModMenuIntegration"
+          "com.mikitellurium.customizablepotioncolor.config.modmenu.ModMenuIntegration"
 		]
 	},
 	"mixins": [

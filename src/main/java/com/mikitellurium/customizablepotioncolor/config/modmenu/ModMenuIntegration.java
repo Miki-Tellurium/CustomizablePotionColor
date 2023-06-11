@@ -1,4 +1,4 @@
-package com.mikitellurium.customizablepotioncolor.config;
+package com.mikitellurium.customizablepotioncolor.config.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

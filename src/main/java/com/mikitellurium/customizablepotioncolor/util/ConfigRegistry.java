@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConfigRegistry {
@@ -43,7 +44,7 @@ public class ConfigRegistry {
     public static TelluriumConfig.ConfigEntry<String> CONFIG_HERO_OF_THE_VILLAGE;
     public static TelluriumConfig.ConfigEntry<String> CONFIG_DARKNESS;
 
-    private static final Map<StatusEffect, TelluriumConfig.ConfigEntry<String>> vanillaEffectsColorConfigs = new HashMap<>();
+    private static final Map<StatusEffect, TelluriumConfig.ConfigEntry<String>> vanillaEffectsColorConfigs = new LinkedHashMap<>();
     public static void initEffectsMap() {
         vanillaEffectsColorConfigs.put(StatusEffects.SPEED, CONFIG_SPEED);
         vanillaEffectsColorConfigs.put(StatusEffects.SLOWNESS, CONFIG_SLOWNESS);
@@ -82,6 +83,10 @@ public class ConfigRegistry {
 
     public static TelluriumConfig.ConfigEntry<String> getConfig(StatusEffect effect) {
         return vanillaEffectsColorConfigs.get(effect);
+    }
+
+    public static Map<StatusEffect, TelluriumConfig.ConfigEntry<String>> getConfigMap() {
+        return vanillaEffectsColorConfigs;
     }
 
 }
