@@ -31,19 +31,19 @@ public class StatusEffectColorSetting {
                 .setDefaultValue(ColorsRegistry.getDefaultColorByEffect(this.statusEffect))
                 .setSaveConsumer((newValue) -> updateConfig(newValue, this.statusEffect))
                 .build();
-        this.listEntry = builder.startSelector(nameKey, this.options, getStartingString(this.colorEntry, statusEffect))
+        this.listEntry = builder.startSelector(nameKey, this.options, getStartingString(statusEffect))
                 .setDefaultValue(options[0])
                 .setNameProvider(this::updateColorEntry)
                 .build();
     }
 
-    private String getStartingString(ColorEntry entry, StatusEffect effect) {
-        if (entry.getValue().equals(ColorsRegistry.getDefaultColorByEffect(effect))) {
-            return "default";
-        } else if (entry.getValue().equals(ColorsRegistry.getLegacyColorByEffect(effect))) {
-            return "old";
+    private String getStartingString(StatusEffect effect) {
+        if (ConfigRegistry.getConfig(effect).getValue().equals(options[0])) {
+            return options[0];
+        } else if (ConfigRegistry.getConfig(effect).getValue().equals(options[1])) {
+            return options[1];
         } else {
-            return "custom";
+            return options[2];
         }
     }
 
@@ -58,9 +58,9 @@ public class StatusEffectColorSetting {
     }
 
     private void updateConfig(int newValue, StatusEffect effect) {
-        if (Colorinator.getHexString(newValue).equals(Colorinator.getHexString(ColorsRegistry.getDefaultColorByEffect(effect)))) {
+        if (this.listEntry.getValue().equals(options[0])) {
             ConfigRegistry.getConfig(effect).setValue(VanillaPotionConfig.DEFAULT);
-        } else if (Colorinator.getHexString(newValue).equals(Colorinator.getHexString(ColorsRegistry.getLegacyColorByEffect(effect)))) {
+        } else if (this.listEntry.getValue().equals(options[1])) {
             ConfigRegistry.getConfig(effect).setValue(VanillaPotionConfig.OLD);
         } else {
             ConfigRegistry.getConfig(effect).setValue(Colorinator.getHexString(newValue));
