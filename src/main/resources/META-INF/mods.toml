@@ -4,7 +4,7 @@ license="MIT License"
 issueTrackerURL="https://github.com/Miki-Tellurium/CustomizablePotionColor/issues" #optional
 [[mods]] #mandatory
 modId="customizablepotioncolor" #mandatory
-version="1.0.0-1.19.4" #mandatory
+version="1.1.0-1.19.4" #mandatory
 displayName="Customizable Potion Color" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
